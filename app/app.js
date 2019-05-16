@@ -21,7 +21,7 @@ MVP:
     [X] - display lvl changes to player
 [ ] - make battle phase
     [ ] - write turn based combat
-    [ ] - write enemy generator function
+    [x] - write enemy generator function
     [ ] - write attack button function
       - for player and enemy
     [ ] - write use item function
@@ -46,6 +46,20 @@ var potentialLootObj = {
   "lint":{"qt":1,"desc":"Not very useful"},
   "boots":{"qt":1,"desc":"You can run faster in these"},
   "fairy":{"qt":1,"desc":"A mysterious little creature","affect":"magicWand"}
+}
+var potentialEnemyNames = {"Imp":"Hisssss..", 
+  "Hill Giant":"Fee Fi Fo Fum, I'm about to turn you into lunch.", 
+  "Cave Troll":"Shreik.. gulp.. gurgle ", 
+  "Mysterious Stranger":"A stranger who is also mysterious", 
+  "Garden Gnome":"You think you can just walk into my gardend unanounced?!", 
+  "Ent":"I grow weary of your kind human.", 
+  "Old Man":"oooh ma back..", 
+  "Bart the Great":"I am Bart and I am great! <br>Prepare to meet your destiny."
+}
+var potentialEnemyLvls = {
+  1:3,
+  2:7,
+  3:10
 }
 
 
@@ -131,6 +145,7 @@ var launchGame = function(currentPlayer, phase) {
 
 
   // PREP PHASE BUTTONS
+  // GET LOOT FUNCTION
   var getLootButton = function(lootSource) {
     var lootSourceKeys = Object.keys(lootSource)
     var num = lootSourceKeys.length
@@ -142,6 +157,21 @@ var launchGame = function(currentPlayer, phase) {
     alert("You found a " + itemName)
     return itemName
   }
+//GENERATE ENEMY FUNCTION
+ var generateEnemy = function(enemyNameSource, enemyLvlSource) {
+      var enemyNameArr = Object.keys(enemyNameSource)
+      var enemyLvlArr = Object.keys(enemyLvlSource)
+      var nameNum = enemyNameArr.length
+      var lvlNum = enemyLvlArr.length
+      function getRandomInt(max) {
+      return Math.floor(Math.random() * Math.floor(max));
+      }
+      var nameIndex = getRandomInt(nameNum)
+      var lvlIndex = getRandomInt(lvlNum)
+      var currentEnemyName = enemyNameArr[nameIndex]
+      var currentEnemyLvl = enemyLvlArr[lvlIndex]
+      return [currentEnemyName, currentEnemyLvl]
+    }
 // SEARCH FOR LOOT BUTTON
   $("#lootButton").click(function() {
     // CHECK AP
@@ -161,7 +191,7 @@ var launchGame = function(currentPlayer, phase) {
     } else {
       alert("You do not have enough Action Points to search for loot right now \n \n \n*hint* Win fights to earn more AP")
     }
-  })
+  });
 // TRAIN COMBAT LVL BUTTON
   $("#trainButton").click(function() {
     if (playerData["ap"] >= 3) {
@@ -180,13 +210,24 @@ var launchGame = function(currentPlayer, phase) {
     } else {
       alert("You do not have enough Action Points to train right now \n \n \n*hint* Win fights to earn more AP")
     }
-
+  });
+// FIGHT BUTTON
+  $("#fightButton").click(function(){
+    alert("CHAMPION, \n \n \nFace your challenger")
+ //ENEMY GENERATOR FUNCTION
+    var newEnemy = generateEnemy(potentialEnemyNames, potentialEnemyLvls)
+    var storeCurrentEnemy = {"name":newEnemy[0],"enemyQuote":potentialEnemyNames[newEnemy[0]],"lvl":newEnemy[1],"hp":potentialEnemyLvls[newEnemy[1]]}
+    createItem("currentEnemy", JSON.stringify(storeCurrentEnemy))
+    $("#enemyNameInfoBox").text(newEnemy[0])
+    $("#enemyQuote").text(potentialEnemyNames[newEnemy[0]])
+    $("#enemyNumLvl").text(newEnemy[1])
+    $("#enemyNumHP").text(potentialEnemyLvls[newEnemy[1]])
+    $(".vs").css("visibility", "visible")
+    $("#enemyBox").css("visibility", "visible")
+    $(".playerBattleButtons").css("visibility", "visible")
+    $(".prepButtons").css("visibility", "hidden")
   })
   // $("#numHP").text(playerData["hp"])
-
-}
-var battlePhase = function() {
-
 }
 var currentPlayerObj = function(currentPlayer) {
     return JSON.parse(window.localStorage[currentPlayer])
@@ -212,32 +253,29 @@ $(document).ready(function() {
         closeMenu()
         //trigger prep phase
         launchGame(playerName, "prep")
-
     }
   }) 
+  // $('#createButton').click(function(event) {
+  //   event.preventDefault();
 
+  //   var currentKey = $("#keyInput").val();
+  //   var currentValue = $("#valueInput").val();
+  //   if (keyExists(currentKey)) {
+  //     //current key exists, do something error-handle-y
+  //   } else {
+  //     createItem(currentKey, currentValue);
+  //   }
+  // });
 
-  $('#createButton').click(function(event) {
-    event.preventDefault();
+  // $('#updateButton').click(function(event) {
+  //   event.preventDefault();
 
-    var currentKey = $("#keyInput").val();
-    var currentValue = $("#valueInput").val();
-    if (keyExists(currentKey)) {
-      //current key exists, do something error-handle-y
-    } else {
-      createItem(currentKey, currentValue);
-    }
-  });
-
-  $('#updateButton').click(function(event) {
-    event.preventDefault();
-
-    var currentKey = $("#keyInput").val();
-    var currentValue = $("#valueInput").val();
-    if (keyExists(currentKey)) {
-      updateItem(currentKey, currentValue);
-    } else {
-      //current key doesnt exist, do stuff
-    }
-  });
+  //   var currentKey = $("#keyInput").val();
+  //   var currentValue = $("#valueInput").val();
+  //   if (keyExists(currentKey)) {
+  //     updateItem(currentKey, currentValue);
+  //   } else {
+  //     //current key doesnt exist, do stuff
+  //   }
+  // });
 });
