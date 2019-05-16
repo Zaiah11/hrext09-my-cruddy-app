@@ -1,28 +1,25 @@
 /*
 
 MVP:
-[x] - design html layout for game
-[x] - track player data
-[x] - write char gen screen
-[x] - diplay char data
-[x] - create a loot diplay [x] - make loot clickable with descriptions
+[X] - design html layout for game
+[X] - track player data
+[X] - write char gen screen
+[X] - diplay char data
+[X] - create a loot diplay [x] - make loot clickable with descriptions
 [X] - write search for loot button function
-    [x] - create array of potential loot
+    [X] - create array of potential loot
     [X] - write function that gives player a random item from array
     [X] - should have all loot functionality
     [X] - should display messge to player about found loot
     [X] - should consume one AP
-[ ] - write train combat lvl function
-    [ ] - should cost 3 AP
-    [ ] - if player doest not have AP alert player
-    [ ] - else increase lvl by one
-    [ ] - cap lvls at 3
-    [ ] - if player tries to train above this alert player
-    [ ] - display lvl changes to player
-
-
-
-  [ ] - make battle phase
+[X] - write train combat lvl function
+    [X] - should cost 3 AP
+    [X] - if player doest not have AP alert player
+    [X] - else increase lvl by one
+    [X] - cap lvls at 3
+    [X] - if player tries to train above this alert player
+    [X] - display lvl changes to player
+[ ] - make battle phase
     [ ] - write turn based combat
     [ ] - write enemy generator function
     [ ] - write attack button function
@@ -97,11 +94,14 @@ var launchGame = function(currentPlayer, phase) {
   var playerData = currentPlayerObj(currentPlayer)
   var playerDataLoot = playerData["loot"]
   $("#numHP").text(playerData["hp"])
-  $("#numLVL").text(playerData["lvl"])
+  //GHE LVL FUNCTION
+  var getLvl = function() {
+    $("#numLVL").text(playerData["lvl"])
+  }
   //GET AP FUNCTION
   var getAp = function (phase) {
     if (phase === "prep") {
-      playerData["ap"]++
+    playerData["ap"] = playerData["ap"] + 9
     }
     $("#numAP").text(playerData["ap"])
   }
@@ -124,6 +124,7 @@ var launchGame = function(currentPlayer, phase) {
         itemFunc($(this).text())
     })
   }
+  getLvl()
   getLoot()
   getAp(phase);
 
@@ -141,6 +142,7 @@ var launchGame = function(currentPlayer, phase) {
     alert("You found a " + itemName)
     return itemName
   }
+// SEARCH FOR LOOT BUTTON
   $("#lootButton").click(function() {
     // CHECK AP
     if (playerData["ap"] > 0) {
@@ -157,8 +159,28 @@ var launchGame = function(currentPlayer, phase) {
     getLoot()
     getAp()
     } else {
-      alert("You do not have enough Action Points to search for loot \n \n \n*hint* Win fights to earn more AP")
+      alert("You do not have enough Action Points to search for loot right now \n \n \n*hint* Win fights to earn more AP")
     }
+  })
+// TRAIN COMBAT LVL BUTTON
+  $("#trainButton").click(function() {
+    if (playerData["ap"] >= 3) {
+      if (playerData["lvl"] < 3){
+        alert("You do some training")
+        playerData["lvl"] = playerData["lvl"] + 1
+        playerData["ap"] = playerData["ap"] - 3
+        if (playerData["lvl"] === 3) {
+        alert("CONGRADULTATIONS CHAMPION, \n \n \nYou have reached the MAX COMBAT LVL")
+        }
+        getLvl()
+        getAp()
+      } else {
+        alert("You cannot train any higher, \n \n \nYou have reached the MAX COMBAT LVL")
+      }
+    } else {
+      alert("You do not have enough Action Points to train right now \n \n \n*hint* Win fights to earn more AP")
+    }
+
   })
   // $("#numHP").text(playerData["hp"])
 
