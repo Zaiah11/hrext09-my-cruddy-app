@@ -8,14 +8,84 @@
           integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
           crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-  <form>
+  <!-- TITLE -->
+  <div id="titleDiv">
+    <h1 id="title">THE DEEPEST DARKEST FOREST</h1>
+  </div>
+  <div id="lowerTitleDivBeige">
+    <div class="tree"></div><div class="tree"></div><div class="tree"></div><div class="tree"></div>
+    <div class="tree"></div><div class="tree"></div><div class="tree"></div><div class="tree"></div>
+    <div class="tree"></div><div class="tree"></div><div class="tree"></div><div class="tree"></div>
+    <div class="tree"></div><div class="tree"></div><div class="tree"></div><div class="tree"></div>
+    <div class="tree"></div><div class="tree"></div><div class="tree"></div><div class="tree"></div>
+    <div class="tree"></div><div class="tree"></div><div class="tree"></div><div class="tree"></div>
+    <div class="tree"></div><div class="tree"></div><div class="tree"></div><div class="tree"></div>
+    <div class="tree"></div><div class="tree"></div><div class="tree"></div><div class="tree"></div>
+    <div class="tree"></div>
+
+  </div>
+  <div id="lowerTitleDivGreen">Action Points: 1</div>
+
+  <!-- POPUP MENU -->
+  <div id="popupMenu" class="menu">
+  <!-- player select menu -->
+  <div class="playerMenu">
+    <h1>Name your champion</h1>
+    <form>
+      <input id="playerName" type="text" placeholder="player name" class="playerNameSubmit">
+      <button id="submitPlayer" type="submit" class="playerNameSubmit">Enter</button>
+    </form>
+  </div>
+  </div>
+
+<!-- PLAYER BOX -->
+<div class="gameBody">
+<div class="playerBox">
+  <h2 class="playerBoxInfo" id="playerNameInfoBox">Player name</h2>
+  <p class="playerBoxInfo" id="playerHp">HP 10</p>
+  <p class="playerBoxInfo" id="playerLvl">LVL 1</p>
+  <p class="playerBoxInfo" id="playerTriumphs">Triumphs 0</p>
+  <p class="playerBoxInfo" id="playerLoot">Loot</p>
+  <div class="playerBoxInfo" id="playerLootDisplay">
+    <button class="items">lint</button>
+    <button class="items">potion</button>
+    <button class="items">boots</button>
+    <button class="items">apple</button>
+    <button class="items">wand</button>
+  </div>
+</div>
+<!-- VS SYMBOL -->
+<div class="vs"><br>VS</div>
+
+<!-- ENEMY BOX -->
+<div class="playerBox" id="enemyBox">
+  <h2 class="enemyBoxInfo" id="playerNameInfoBox">Enemy name</h2>
+  <p class="enemyBoxInfo" id="playerHp">HP 10</p>
+  <p class="enemyBoxInfo" id="playerLvl">LVL 1</p>
+</div>
+</div>
+<div class="allGameButtons">
+  <div class="prepButtons">
+    <button class="playerPrepButtons" id="lootButton" type="button">Search for loot</button>
+    <button class="playerPrepButtons" id="trainButton" type="button">Train</button>
+    <button class="playerPrepButtons" id="fightButton" type="button">Fight</button>
+  </div>
+  <div class="prepButtons">
+    <button class="playerBattleButtons" id="attackButton" type="button">Attack</button>
+    <button class="playerBattleButtons" id="useItemButton" type="button">Item</button>
+    <button class="playerBattleButtons" id="runButton" type="button">Run</button>
+  </div>
+</div>
+
+  <script src='app/app.js'></script>
+</body>
+</html>
+<!--   <form>
     <input id="keyInput" type="text" placeholder="key"></input>
     <input id="valueInput" type="text" placeholder="value"></input>
     <button id="createButton" type='submit'>Create</button>
     <button id="updateButton" type='submit'>Update</button>
-  </form>
-  <script src='app/app.js'></script>
-</body>
-</html>
+  </form> -->

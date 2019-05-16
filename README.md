@@ -43,6 +43,8 @@ There will be 3 main screens in the game,
 				- The player could also train specific skills in the prep phase
 			2. I would like to add some more RPG elements to the prep phase:
 				- Maybe scavenging for loot could have some random dialogue generated
+			3. add music
+			4. add hp bars
 
 
 

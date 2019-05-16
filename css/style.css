@@ -2,3 +2,207 @@
   input boxes
   buttons
 */
+
+
+
+
+/*
+FIND SOME RETRO ZELDA LOOKING BORDER FOR THE WEBSITE
+*/
+body{
+	background-color: beige;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin: 0%;
+}
+/*++++++++++++++ TITLE +++++++++++++++++++*/
+#titleDiv {
+	display: flex;
+	justify-content: center;
+	height: 100px;
+	width: 100%;
+	background-color: gold;
+}
+#title {
+	color: red;
+	align-self: center;
+	font-size: 75px;
+	letter-spacing: -5px;
+	text-shadow: 2px 1px 2px black;
+}
+#lowerTitleDivBeige {
+	display: flex;
+	justify-content: center;
+	height: 50px;
+	width: 100%;
+	background-color: beige;
+	box-shadow: inset 0px 5px 2px grey;
+}
+.tree{
+	color: green;
+	width: 0;
+	height: 0;
+	border-left: 25px solid transparent;
+	border-right: 25px solid transparent;
+	border-top: 50px solid darkgreen;
+}
+#lowerTitleDivGreen {
+	height: 50px;
+	width: 100%;
+	background-color: darkgreen;
+	box-shadow: 0px 5px 2px grey;
+	text-align: center;
+	font-size: 42px;
+	color: white;
+}
+/*+++++++++++POP UP MENU++++++++++++++++++++++*/
+
+/* The MENU (background) */
+.menu {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/*PLAYER SELECT*/
+.playerMenu {
+	text-align: center;
+  background-color: beige;
+  margin: auto;
+  padding: 20px;
+  border: 5px solid #888;
+  width: 50%;
+}
+.playerNameSubmit {
+	background-color: beige;
+	width:27%;
+}
+
+/* The Close Button */
+.closeMenu {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.closeMenu:hover,
+.closeMenu:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+
+/*+++++++++++++ PLAYER BOX ++++++++++++*/
+.gameBody {
+	display: flex;
+	justify-content: center;
+	flex-direction: row;
+	margin-bottom: 2%;
+}
+.playerBox {
+	padding: 2%;
+	margin-top: 2%;
+	background-color: yellowgreen;
+	height: 400px;
+	width: 400px;
+	border-style: groove;
+	border-width: 15px;
+	border-color: coral;
+}
+#playerLootDisplay {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	height: 44%;
+	width: 99%;
+	background-color: darkgreen;
+	box-shadow: inset 2px 2px 2px black;
+}
+.items {
+	height: 30px;
+	width: 75px;
+	align-self: center;
+	font-size: 13px;
+	margin: 1%;
+	border-radius: 7%;
+	background-color: navajowhite;
+	box-shadow: 1px 1px 1px black;
+	text-align: center;
+}
+
+.allGameButtons {
+	display: flex;
+	justify-content: center;
+	height: 200px;
+}
+.prepButtons {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+}
+/*++++++++++++ PREP PHASE ++++++++++++*/
+.playerPrepButtons {
+	background-color: none;
+	align-self: center;
+	margin: 0.25%;
+	padding: 0.25%;
+	font-size: 25px;
+	border-radius: 7%;
+	background-color: navajowhite;
+	box-shadow: 1px 1px 1px black;
+	height: 40px;
+	width: 200px;
+	text-align: center;
+}
+
+
+/*+++++++++++++ BATTLE PHASE +++++++++*/
+
+.vs {
+	padding: 2%;
+	margin-top: 2%;
+	background-color: none;
+	height: 400px;
+	width: 400px;
+	display: flex;
+	justify-content: center;
+	font-size: 600%;
+	color: red;
+	visibility: hidden;
+}
+
+#enemyBox {
+	visibility: hidden;
+}
+
+.playerBattleButtons {
+	background-color: none;
+	align-self: center;
+	margin: 0.25%;
+	padding: 0.25%;
+	font-size: 25px;
+	border-radius: 7%;
+	background-color: navajowhite;
+	box-shadow: 1px 1px 1px black;
+	height: 40px;
+	width: 200px;
+	text-align: center;
+	visibility: hidden;
+}
+
+
+
+
