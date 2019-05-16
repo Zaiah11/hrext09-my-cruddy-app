@@ -75,11 +75,14 @@ body{
 
 /*PLAYER SELECT*/
 .playerMenu {
-	text-align: center;
-  background-color: beige;
+  text-align: center;
+  color: black;
+  background-color: sandybrown;
   margin: auto;
   padding: 20px;
-  border: 5px solid #888;
+  border-style: groove;
+  border-width: 15px;
+  border-color: forestgreen;
   width: 50%;
 }
 .playerNameSubmit {
@@ -147,6 +150,7 @@ body{
 	display: flex;
 	justify-content: center;
 	height: 200px;
+
 }
 .prepButtons {
 	display: flex;
@@ -154,6 +158,15 @@ body{
 	flex-direction: column;
 }
 /*++++++++++++ PREP PHASE ++++++++++++*/
+.middleSection {
+	height: 400px;
+	width: 400px;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	margin-top: 2%;
+
+}
 .playerPrepButtons {
 	background-color: none;
 	align-self: center;
@@ -172,13 +185,7 @@ body{
 /*+++++++++++++ BATTLE PHASE +++++++++*/
 
 .vs {
-	padding: 2%;
-	margin-top: 2%;
-	background-color: none;
-	height: 400px;
-	width: 400px;
-	display: flex;
-	justify-content: center;
+	text-align: center;
 	font-size: 600%;
 	color: red;
 	visibility: hidden;

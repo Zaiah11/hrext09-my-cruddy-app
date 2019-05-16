@@ -27,7 +27,7 @@
     <div class="tree"></div>
 
   </div>
-  <div id="lowerTitleDivGreen">Action Points: 1</div>
+  <div id="lowerTitleDivGreen">Triumphs: 0</div>
 
   <!-- POPUP MENU -->
   <div id="popupMenu" class="menu">
@@ -45,20 +45,28 @@
 <div class="gameBody">
 <div class="playerBox">
   <h2 class="playerBoxInfo" id="playerNameInfoBox">Player name</h2>
-  <p class="playerBoxInfo" id="playerHp">HP 10</p>
-  <p class="playerBoxInfo" id="playerLvl">LVL 1</p>
-  <p class="playerBoxInfo" id="playerTriumphs">Triumphs 0</p>
+  <p class="playerBoxInfo" id="playerHp">HP <span id="numHP"></span></p>
+  <p class="playerBoxInfo" id="playerLvl">LVL <span id="numLVL"></span></p>
+  <p class="playerBoxInfo" id="playerAP">Action Points <span id="numAP"></span></p>
   <p class="playerBoxInfo" id="playerLoot">Loot</p>
   <div class="playerBoxInfo" id="playerLootDisplay">
-    <button class="items">lint</button>
+<!--     <button class="items">lint</button>
     <button class="items">potion</button>
     <button class="items">boots</button>
     <button class="items">apple</button>
-    <button class="items">wand</button>
+    <button class="items">wand</button> -->
   </div>
 </div>
 <!-- VS SYMBOL -->
-<div class="vs"><br>VS</div>
+<div class="middleSection">
+<p class="vs"><br> VS </p>
+    <!-- PREP PHASE BUTTONS -->
+    <div class="prepButtons">
+    <button class="playerPrepButtons" id="lootButton" type="button">Search for loot</button>
+    <button class="playerPrepButtons" id="trainButton" type="button">Train</button>
+    <button class="playerPrepButtons" id="fightButton" type="button">Fight</button>
+  </div>
+</div>
 
 <!-- ENEMY BOX -->
 <div class="playerBox" id="enemyBox">
@@ -67,12 +75,9 @@
   <p class="enemyBoxInfo" id="playerLvl">LVL 1</p>
 </div>
 </div>
+
+<!-- BATTLE PHASE BUTTONS -->
 <div class="allGameButtons">
-  <div class="prepButtons">
-    <button class="playerPrepButtons" id="lootButton" type="button">Search for loot</button>
-    <button class="playerPrepButtons" id="trainButton" type="button">Train</button>
-    <button class="playerPrepButtons" id="fightButton" type="button">Fight</button>
-  </div>
   <div class="prepButtons">
     <button class="playerBattleButtons" id="attackButton" type="button">Attack</button>
     <button class="playerBattleButtons" id="useItemButton" type="button">Item</button>
