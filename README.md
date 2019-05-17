@@ -46,6 +46,8 @@ There will be 3 main screens in the game,
 			3. add music
 			4. add hp bars
 			5. add in randomized memos for each action button
+			6. add animtations
+                
 
 
 

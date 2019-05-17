@@ -27,18 +27,30 @@
     <div class="tree"></div>
 
   </div>
-  <div id="lowerTitleDivGreen">Triumphs: 0</div>
+  <div id="lowerTitleDivGreen">Triumphs: <span id="vic">0</span></div>
 
-  <!-- POPUP MENU -->
+  <!-- POPUP MENUS -->
   <div id="popupMenu" class="menu">
-  <!-- player select menu -->
-  <div class="playerMenu">
-    <h1>Name your champion</h1>
-    <form>
-      <input id="playerName" type="text" placeholder="player name" class="playerNameSubmit">
-      <button id="submitPlayer" type="submit" class="playerNameSubmit">Enter</button>
-    </form>
-  </div>
+      <!-- PLAYER MENU -->
+    <div class="playerMenu">
+      <h1>Name your champion</h1>
+      <form>
+        <input id="playerName" type="text" placeholder="player name" class="playerNameSubmit">
+        <button id="submitPlayer" type="submit" class="playerNameSubmit">Enter</button>
+      </form>
+    </div>
+  <!-- USE ITEM MENU -->
+    <div class="useItemMenu">
+      <h1>Select Item</h1>
+      <span id="storeItems"></span>
+      <!-- populate here with buttons from player loot -->
+    </div>
+    <!-- GAME OVER SCREEN -->
+    <div class="gameOver">
+      <h1>GAME OVER</h1>
+      <p>You have perished</p>
+      <p>Refresh your browser to play again</p>
+    </div>
   </div>
 
 <!-- PLAYER BOX -->
@@ -81,7 +93,7 @@
 <div class="allGameButtons">
   <div class="prepButtons">
     <button class="playerBattleButtons" id="attackButton" type="button">Attack</button>
-    <button class="playerBattleButtons" id="useItemButton" type="button">Item</button>
+    <button class="playerBattleButtons" id="useItemButton" type="button">Use Item</button>
     <button class="playerBattleButtons" id="runButton" type="button">Run</button>
   </div>
 </div>
