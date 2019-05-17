@@ -28,9 +28,9 @@
       [X] - write run function
         [X] - reloop game and count triumph if player win
         [X] - write game over function if player death
-  [ ] - finishinf touches for MVP
+  [X] - finishinf touches for MVP
       [X] - finish giving all items an effect
-      [ ] - give combat system some randomization
+      [X] - give combat system some randomization
 
   EXTRA:
     [ ] - allow for actual game restart without needing to refresh browser
@@ -42,6 +42,7 @@
     [ ] - translate ADVANCED list into check boxes
     [ ] - create high score local storage object 
         [ ] - display top highscore on opening screen
+    [ ] - add critcal hit and critical miss messages to combat
 
 4. ADVANCED: 
     if I get through all of this and still have time 
@@ -299,15 +300,9 @@
     $("#attackButton").click(function(){
       var dmg = 0;
       var playerAttack = function(){
-        if (Number(playerData["lvl"]) > Number(enemyData["lvl"])) {
-          dmg = (Number(playerData["lvl"]) + Number(enemyData["lvl"])) * 2
-        }
-        else if (Number(playerData["lvl"]) === Number(enemyData["lvl"])) {
-          dmg = (Number(playerData["lvl"]) + Number(enemyData["lvl"]))
-        }
-        else {
-          dmg = 2
-        }
+        var playerDmgCap = (Number(playerData["lvl"]) + 1) * 2
+        console.log(playerDmgCap)
+        dmg = rollDice(playerDmgCap)
         alert("You dealt " + dmg +" damage")
         enemyData["hp"] = enemyData["hp"] - dmg
         getEnemyHp()
@@ -437,15 +432,9 @@
 
 
   var enemyAttack = function() {
-      if (Number(playerData["lvl"]) < Number(enemyData["lvl"])) {
-        dmg = Number(playerData["lvl"]) * 2
-      }
-      else if (Number(playerData["lvl"]) === Number(enemyData["lvl"])) {
-        dmg = Number(playerData["lvl"]) + 1
-      }
-      else {
-        dmg = 1
-      } 
+      var dmgCap = (Number(enemyData["lvl"]) + 1) * 2
+      console.log(dmgCap)
+      dmg = rollDice(dmgCap)
       alert(enemyData["name"] + " dealt " + dmg +" damage")
       playerData["hp"] = playerData["hp"] - dmg
       getHp()
