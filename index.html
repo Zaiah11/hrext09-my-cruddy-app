@@ -27,7 +27,7 @@
     <div class="tree"></div>
 
   </div>
-  <div id="lowerTitleDivGreen">Triumphs: <span id="vic">0</span></div>
+  <div id="lowerTitleDivGreen"><span id="highScore">HighScore:<span class="hsNum"> </span></span><br> Triumphs: <span id="vic">0</span> </div>
 
   <!-- POPUP MENUS -->
   <div id="popupMenu" class="menu">
@@ -45,11 +45,18 @@
       <span id="storeItems"></span>
       <!-- populate here with buttons from player loot -->
     </div>
+    <!-- MESSAGES -->
+    <div class="messages">
+      <p id="currentMessage">you found some something</p>
+      <button type="button" id="ok">o</button>
+    </div>
     <!-- GAME OVER SCREEN -->
     <div class="gameOver">
       <h1>GAME OVER</h1>
       <p>You have perished</p>
       <p>Refresh your browser to play again</p>
+      <p>Highscore: <span class="hsNum"> </span></p>
+      <h1 class="newHighScore">Your score: <span id="playerScore"></span></h1>
     </div>
   </div>
 

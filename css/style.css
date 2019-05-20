@@ -47,8 +47,12 @@ body{
 	border-right: 25px solid transparent;
 	border-top: 50px solid darkgreen;
 }
+
+#highScore {
+	color: gold;
+}
 #lowerTitleDivGreen {
-	height: 50px;
+	height: 100px;
 	width: 100%;
 	background-color: darkgreen;
 	box-shadow: 0px 5px 2px grey;
@@ -106,7 +110,31 @@ body{
   cursor: pointer;
 }
 
+.useItemMenu {
+  text-align: center;
+  color: black;
+  background-color: sandybrown;
+  margin: auto;
+  padding: 20px;
+  border-style: groove;
+  border-width: 15px;
+  border-color: forestgreen;
+  width: 50%;
+  display: none;
+}
 
+.messages {
+  text-align: center;
+  color: black;
+  background-color: sandybrown;
+  margin: auto;
+  padding: 20px;
+  border-style: groove;
+  border-width: 15px;
+  border-color: forestgreen;
+  width: 50%;
+  display: none;
+}
 
 /*+++++++++++++ PLAYER BOX ++++++++++++*/
 .gameBody {
@@ -161,6 +189,8 @@ body{
 #useItemButton {
 	visibility: visible;
 }
+
+
 /*++++++++++++ PREP PHASE ++++++++++++*/
 .middleSection {
 	height: 400px;
@@ -212,19 +242,6 @@ body{
 	width: 200px;
 	text-align: center;
 	visibility: hidden;
-}
-
-.useItemMenu {
-  text-align: center;
-  color: black;
-  background-color: sandybrown;
-  margin: auto;
-  padding: 20px;
-  border-style: groove;
-  border-width: 15px;
-  border-color: forestgreen;
-  width: 50%;
-  display: none;
 }
 
 

@@ -33,16 +33,29 @@
       [X] - give combat system some randomization
 
   EXTRA:
-    [ ] - allow for actual game restart without needing to refresh browser
+  5/20/2019
+    [X] - create highscore tracker,
+        [X] - display player's score on game over menu
+            [X] -  if score is > highscore say new high score!
+        [X] - should be displayed on main screeen next to triumphs
+        [X] - should be displayed at game over screen if you set congradulated else encourage player to try again
     [ ] - get rid of all alert boxes, replace them with pop up windows
+        [ ] - combat messages should be in pop ups
+        [ ] - searching for loot should be if pop ups
+        [ ] - item uses should be in pop ups
+  IF TIME LEFT AFTER:
     [ ] - make use item pop up buttons nicer
     [ ] - make item description menu better, 
         [ ] - display quantity of item
         [ ] - adjust rarity of items
-    [ ] - translate ADVANCED list into check boxes
-    [ ] - create high score local storage object 
-        [ ] - display top highscore on opening screen
     [ ] - add critcal hit and critical miss messages to combat
+
+
+
+
+    [ ] - write a hint menu that randomly generates hints at game over screen
+    [ ] - allow for actual game restart without needing to refresh browser
+    [ ] - translate ADVANCED list into check boxes
 
 4. ADVANCED: 
     if I get through all of this and still have time 
@@ -113,6 +126,11 @@
     var currentValue = getItem(key);
     return currentValue !== null;
   }
+  var getHighScore = function() {
+    if (keyExists("highscore")) {
+      $(".hsNum").text(" " + getItem("highscore"))
+    }
+  }
   //popup menu
   var openMenu = function(type) {
     if(type === "playerSelect") {
@@ -124,6 +142,11 @@
     else if (type === "gameOver") {
       $(".gameOver").css("display", "block")
     }
+    else if (type === "messages") {
+      $(".messages").css("display", "block")
+      $("#ok").click(function(){closeMenu("messages")}
+        )
+    }
     $(".menu").css("display", "block")
   }
   var closeMenu = function(type){
@@ -133,10 +156,21 @@
     else if (type === "useItem") {
       $(".useItemMenu").css("display", "none")
     }
+    else if (type === "messages") {
+      $(".messages").css("display", "none")
+    }
     $(".menu").css("display", "none")
   }
-  var gameOver = function(){
+  var gameOver = function(triumphs){
+      var scoreObj = triumphs
+      var scoreToBeat = getItem("highscore")
+      if (Number(triumphs) > Number(scoreToBeat) || !(keyExists("highscore"))) {
+        createItem("highscore", JSON.stringify(scoreObj))
+        $(".newHighScore").text("NEW HIGH SCORE: " + triumphs)
+        console.log("new high score")
+      }
       openMenu("gameOver")
+      $("#playerScore").text(triumphs)
   }
   var rollDice = function(max){
     return Math.floor(Math.random() * Math.floor(max));
@@ -149,6 +183,7 @@
     var playerData = currentPlayerObj(currentPlayer)
     var playerDataLoot = playerData["loot"]
     var enemyData;
+    playerData["name"] = currentPlayer
     $("#numHP").text(playerData["hp"])
     //GET HP FUNCTION
     var getHp = function() {
@@ -190,7 +225,8 @@
         // ITEM FUNCTIONS:
         // GET ITEM DESCRIPTIONS WHEN CLICKED:
       var itemFunc = function(itemType) {
-          alert(playerDataLoot[itemType]["desc"])
+          $("#currentMessage").text(playerDataLoot[itemType]["desc"])
+          openMenu("messages")
       }
       $(".items").click(function() {
           itemFunc($(this).text())
@@ -212,7 +248,8 @@
       }
       var index = getRandomInt(num)
       var itemName = lootSourceKeys[index]
-      alert("You found a " + itemName)
+      $("#currentMessage").text("You found a " + itemName)
+      openMenu("messages")
       return itemName
     }
 
@@ -256,31 +293,37 @@
       getLoot("#playerLootDisplay", "items")
       getAp()
       } else {
-        alert("You do not have enough Action Points to search for loot right now \n \n \n*hint* Win fights to earn more AP")
+        $("#currentMessage").text("You do not have enough Action Points to search for loot right now \n \n \n*hint* Win fights to earn more AP")
+        openMenu("messages")
       }
     });
   // TRAIN COMBAT LVL BUTTON
     $("#trainButton").click(function() {
       if (playerData["ap"] >= 3) {
         if (playerData["lvl"] < 3){
-          alert("You do some training")
+          $("#currentMessage").text("You do some training")
+          openMenu("messages")
           playerData["lvl"] = playerData["lvl"] + 1
           playerData["ap"] = playerData["ap"] - 3
           if (playerData["lvl"] === 3) {
-          alert("CONGRADULTATIONS CHAMPION, \n \n \nYou have reached the MAX COMBAT LVL")
+          $("#currentMessage").text("CONGRADULTATIONS CHAMPION, \n \n \nYou have reached the MAX COMBAT LVL")
+          openMenu("messages")
           }
           getLvl()
           getAp()
         } else {
-          alert("You cannot train any higher, \n \n \nYou have reached the MAX COMBAT LVL")
+          $("#currentMessage").text("You cannot train any higher, \n \n \nYou have reached the MAX COMBAT LVL")
+          openMenu("messages")
         }
       } else {
-        alert("You do not have enough Action Points to train right now \n \n \n*hint* Win fights to earn more AP")
+        $("#currentMessage").text("You do not have enough Action Points to train right now \n \n \n*hint* Win fights to earn more AP")
+        openMenu("messages")
       }
     });
   // FIGHT BUTTON
     $("#fightButton").click(function(){
-      alert("CHAMPION, \n \n \nFace your challenger")
+      $("#currentMessage").text("CHAMPION, \n \n \nFace your challenger")
+      openMenu("messages")
    //ENEMY GENERATOR FUNCTION
       var newEnemy = generateEnemy(potentialEnemyNames, potentialEnemyLvls)
       var storeCurrentEnemy = {"name":newEnemy[0],"enemyQuote":potentialEnemyNames[newEnemy[0]],"lvl":newEnemy[1],"hp":potentialEnemyLvls[newEnemy[1]]}
@@ -301,15 +344,16 @@
       var dmg = 0;
       var playerAttack = function(){
         var playerDmgCap = (Number(playerData["lvl"]) + 1) * 2
-        console.log(playerDmgCap)
         dmg = rollDice(playerDmgCap)
-        alert("You dealt " + dmg +" damage")
+        $("#currentMessage").text("You dealt " + dmg +" damage")
+        openMenu("messages")
         enemyData["hp"] = enemyData["hp"] - dmg
         getEnemyHp()
       }
       playerAttack()
       if (enemyData["hp"] < 1) {
-        alert("You have slain an enemy!")
+        $("#currentMessage").text("You have slain an enemy!")
+        openMenu("messages")
         playerData["triumphs"] = Number(playerData["triumphs"]) + 1
         deleteItem("currentEnemy")
         resetToPrepPhase()
@@ -318,25 +362,28 @@
       } else {
         enemyAttack()
         if (playerData["hp"] < 1) {
-          gameOver()
+          gameOver(playerData["triumphs"])
         }
       }
     })
     //USE ITEM BUTTON
     $("#useItemButton").click(function(){
       if (Object.keys(playerData["loot"]).length < 1) {
-        alert("You don\'t have any items")
+        $("#currentMessage").text("You don\'t have any items")
+        openMenu("messages")
       } else {
         getLoot("#storeItems", "battleItems")
         openMenu("useItem")
         var battleItemAlert = function(itemType) {
-            alert(playerDataLoot[itemType]["desc"])
+            $("#currentMessage").text(playerDataLoot[itemType]["desc"])
+            openMenu("messages")
         }
         $(".battleItems").click(function() {
           //USE ITEM IN AND OUT OF BATTLE FUNCTIONS
             var continueCombat = function(){
               if (enemyData["hp"] < 1) {
-                alert("You have slain an enemy!")
+                $("#currentMessage").text("You have slain an enemy!")
+                openMenu("messages")
                 playerData["triumphs"] = Number(playerData["triumphs"]) + 1
                 deleteItem("currentEnemy")
                 resetToPrepPhase()
@@ -345,7 +392,7 @@
               } else {
                 enemyAttack()
                 if (playerData["hp"] < 1) {
-                  gameOver()
+                  gameOver(playerData["triumphs"])
                 }
               }
             }
@@ -364,11 +411,13 @@
               else if (item === "boots") {
                 if (getItem("currentEnemy")){
                   initiateUseItemAlerts(clickedItem)
-                  alert("You escape unscathed")
+                  $("#currentMessage").text("You escape unscathed")
+                  openMenu("messages")
                   deleteItem("currentEnemy")
                   resetToPrepPhase()
                 } else {
-                  alert("You could run fast in these!")
+                  $("#currentMessage").text("You could run fast in these!")
+                  openMenu("messages")
                 }
               }
               else if (item === "wand") {
@@ -378,7 +427,8 @@
                 initiateUseItemAlerts(clickedItem)
                 continueCombat()
                 } else {
-                  alert("Save this item for combat")
+                  $("#currentMessage").text("Save this item for combat")
+                  openMenu("messages")
                 }
               }
               else if (item === "fairy") {
@@ -386,10 +436,12 @@
                   initiateUseItemAlerts(clickedItem)
                   enemyData["hp"] = 0
                   getEnemyHp()
-                  alert("The fairy leaps from your hand and smights your enemy")
+                  $("#currentMessage").text("The fairy leaps from your hand and smights your enemy")
+                  openMenu("messages")
                   continueCombat()
                 } else {
-                  alert("A mysterious little creature")
+                  $("#currentMessage").text("A mysterious little creature")
+                  openMenu("messages")
                 }             
               }
               else if (item === "book") {
@@ -416,14 +468,16 @@
     $("#runButton").click(function(){
         var runRollDice = rollDice(2)
         if (runRollDice === 0)  {
-          alert("You escape unscathed")
+          $("#currentMessage").text("You escape unscathed")
+          openMenu("messages")
           deleteItem("currentEnemy")
           resetToPrepPhase()
         } else {
-          alert("You turn to flee, \n \n \nbut your enemy is too fast")
+          $("#currentMessage").text("You turn to flee, \n \n \nbut your enemy is too fast")
+          openMenu("messages")
           enemyAttack()
           if (playerData["hp"] < 1) {
-          gameOver()
+          gameOver(playerData["triumphs"])
           }
         }    
     })
@@ -433,9 +487,9 @@
 
   var enemyAttack = function() {
       var dmgCap = (Number(enemyData["lvl"]) + 1) * 2
-      console.log(dmgCap)
       dmg = rollDice(dmgCap)
-      alert(enemyData["name"] + " dealt " + dmg +" damage")
+      $("#currentMessage").text(enemyData["name"] + " dealt " + dmg +" damage")
+      openMenu("messages")
       playerData["hp"] = playerData["hp"] - dmg
       getHp()
   }
@@ -455,7 +509,8 @@
       event.preventDefault();
       var playerName = $("#playerName").val();
       if (playerName.length < 1) {
-        alert("please name your character")
+        $("#currentMessage").text("please name your character")
+        openMenu("messages")
       }
       else {
       // createItem("Player", {currentValue:{"hp":10,"triumphs":0,"lvl":1,"loot":{},"ap":1}})
@@ -463,6 +518,7 @@
           createItem(playerName, JSON.stringify(playerObj))
           createItem("potentialLoot", JSON.stringify(potentialLootObj))
           closeMenu("playerSelect")
+          getHighScore()
           //trigger prep phase
           launchGame(playerName, "prep")
       }
