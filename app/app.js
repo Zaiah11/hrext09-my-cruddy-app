@@ -142,10 +142,20 @@
     else if (type === "gameOver") {
       $(".gameOver").css("display", "block")
     }
+    else if (type === "cMessage") {
+      $(".cMessage").css("display", "block")
+    }
     else if (type === "messages") {
       $(".messages").css("display", "block")
-      $("#ok").click(function(){closeMenu("messages")}
-        )
+      $("#ok").click(function() {
+        closeMenu("messages")
+      })
+    }
+    else if (type === "enemyMessage") {
+      $(".enemyMessage").css("display", "block")
+      $("#eok").click(function() {
+        closeMenu("enemyMessage")
+      })
     }
     $(".menu").css("display", "block")
   }
@@ -158,6 +168,12 @@
     }
     else if (type === "messages") {
       $(".messages").css("display", "none")
+    }
+    else if (type === "cMessage") {
+      $(".cMessage").css("display", "none")
+    }
+    else if (type === "enemyMessage") {
+      $(".enemyMessage").css("display", "none")
     }
     $(".menu").css("display", "none")
   }
@@ -345,26 +361,30 @@
       var playerAttack = function(){
         var playerDmgCap = (Number(playerData["lvl"]) + 1) * 2
         dmg = rollDice(playerDmgCap)
-        $("#currentMessage").text("You dealt " + dmg +" damage")
-        openMenu("messages")
+        $("#currentCMessage").text("You dealt " + dmg +" damage")
+        openMenu("cMessage")
         enemyData["hp"] = enemyData["hp"] - dmg
         getEnemyHp()
+        $(".cMessage").click(function() {
+          if (enemyData["hp"] < 1) {
+            closeMenu("cMessage")
+            $("#currentMessage").text("You have slain an enemy!")
+            openMenu("messages")
+            playerData["triumphs"] = Number(playerData["triumphs"]) + 1
+            deleteItem("currentEnemy")
+            resetToPrepPhase()
+            getAp("prep")
+            getTriumphs()
+          } else {
+            closeMenu("cMessage")
+            enemyAttack()
+            if (playerData["hp"] < 1) {
+              gameOver(playerData["triumphs"])
+            }
+          }
+        })
       }
       playerAttack()
-      if (enemyData["hp"] < 1) {
-        $("#currentMessage").text("You have slain an enemy!")
-        openMenu("messages")
-        playerData["triumphs"] = Number(playerData["triumphs"]) + 1
-        deleteItem("currentEnemy")
-        resetToPrepPhase()
-        getAp("prep")
-        getTriumphs()
-      } else {
-        enemyAttack()
-        if (playerData["hp"] < 1) {
-          gameOver(playerData["triumphs"])
-        }
-      }
     })
     //USE ITEM BUTTON
     $("#useItemButton").click(function(){
@@ -488,8 +508,8 @@
   var enemyAttack = function() {
       var dmgCap = (Number(enemyData["lvl"]) + 1) * 2
       dmg = rollDice(dmgCap)
-      $("#currentMessage").text(enemyData["name"] + " dealt " + dmg +" damage")
-      openMenu("messages")
+      $("#currentEnemyMessage").text(enemyData["name"] + " dealt " + dmg +" damage")
+      openMenu("enemyMessage")
       playerData["hp"] = playerData["hp"] - dmg
       getHp()
   }

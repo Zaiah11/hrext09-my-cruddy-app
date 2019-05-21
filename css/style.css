@@ -135,6 +135,30 @@ body{
   width: 50%;
   display: none;
 }
+.cMessage {
+  text-align: center;
+  color: black;
+  background-color: sandybrown;
+  margin: auto;
+  padding: 20px;
+  border-style: groove;
+  border-width: 15px;
+  border-color: forestgreen;
+  width: 50%;
+  display: none;
+}
+.enemyMessage {
+  text-align: center;
+  color: black;
+  background-color: sandybrown;
+  margin: auto;
+  padding: 20px;
+  border-style: groove;
+  border-width: 15px;
+  border-color: forestgreen;
+  width: 50%;
+  display: none;
+}
 
 /*+++++++++++++ PLAYER BOX ++++++++++++*/
 .gameBody {
