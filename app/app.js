@@ -108,8 +108,9 @@ GAME IS NOT VERY FUN...
   }
   var potentialEnemyLvls = {
     1:3,
-    2:7,
-    3:10
+    2:5,
+    3:7,
+    4:10
   }
 
 
@@ -193,6 +194,8 @@ GAME IS NOT VERY FUN...
     $(".menu").css("display", "none")
   }
   var gameOver = function(triumphs){
+      $("#fightMusic")[0].pause()
+      $("#gameOverMusic")[0].play()
       var scoreObj = triumphs
       var scoreToBeat = getItem("highscore")
       if (Number(triumphs) > Number(scoreToBeat) || !(keyExists("highscore"))) {
@@ -298,7 +301,7 @@ GAME IS NOT VERY FUN...
         var enemyNameArr = Object.keys(enemyNameSource)
         var enemyLvlArr = Object.keys(enemyLvlSource)
         var nameNum = enemyNameArr.length
-        var lvlNum = enemyLvlArr.length
+        var lvlNum = Number(playerData["lvl"]) + 1
         function getRandomInt(max) {
         return Math.floor(Math.random() * Math.floor(max));
         }

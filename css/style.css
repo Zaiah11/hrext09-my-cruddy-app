@@ -9,12 +9,17 @@
 /*
 FIND SOME RETRO ZELDA LOOKING BORDER FOR THE WEBSITE
 */
+
 body{
-	background-color: beige;
+	background: url(/Users/bigboyswagcakes/HR09/hrext09-my-cruddy-app/background.png);
+	background-color: khaki;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	margin: 0%;
+}
+::-webkit-scrollbar {
+	display: none;
 }
 /*++++++++++++++ TITLE +++++++++++++++++++*/
 #titleDiv {
@@ -36,7 +41,6 @@ body{
 	justify-content: center;
 	height: 50px;
 	width: 100%;
-	background-color: beige;
 	box-shadow: inset 0px 5px 2px grey;
 }
 .tree{
